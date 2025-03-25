@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Login from "./Login";
+import Logout from "./Logout";
+import { useAuth } from "../context/AuthProvider";
 
 const Navbar = () => {
+  
+  const [authUser, setAuthUser] = useAuth();
+
   const [sticky, setSticky] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
@@ -25,10 +30,10 @@ const Navbar = () => {
         <a href="/course">Course</a>
       </li>
       <li>
-        <a>Contact</a>
+        <a href="/contact">Contact</a>
       </li>
       <li>
-        <a>About</a>
+        <a href="/about">About</a>
       </li>
     </>
   );
@@ -151,10 +156,15 @@ const Navbar = () => {
               </svg>
             </label>
 
+            {
+              authUser? <Logout/> :
             <div className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-800 duration-300 cursor-pointer">
               <a className="" onClick={()=>document.getElementById("my_modal_3").showModal()}>Login</a>
               <Login />
             </div>
+            }
+
+
           </div>
         </div>
       </div>
